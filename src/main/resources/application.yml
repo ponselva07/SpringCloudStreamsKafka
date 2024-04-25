@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    function:
+      definition: stringProducer;stringConsumer
+    stream:
+      bindings:
+        stringProducer-out-0:
+          destination: text-input-topic
+          binder: kafka1
+        stringConsumer-in-0:
+          destination: text-uppercase-topic
+          binder: kafka2
+      binders:
+        kafka1:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    streams:
+                      binder:
+                        brokers: localhost:9092
+        kafka2:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    streams:
+                      binder:
+                        brokers: localhost:9092
